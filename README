@@ -1,0 +1,39 @@
+Problem we are solving: Creating a spell checker that spell checks a text file.
+
+The classes that we are using in this file are namespace std, iostream, fstream, vector, string, cstring, stdio.h, stdlib.h, cstdlib, algorithm, HashTable.h, and BinarySearchTree.h. The inbuilt classes are namespace std, iostream, fstream, vector, string, cstring, stdio.h, stdlib.h, cstdlib, and algorithm are from the standard library. Namespace std and iostream allows the user to use cin and cout. Fstream is used for files. Vector, string, cstring allow us to use vectors and strings in our program. Stdio.h, stdlib.h, and cstdlib are from the standard library. Cstdlib particularly allows to clear the screen. The HashTable.h class allows us to use hashtables in our program, it is useful for us to add word to the existing dictionary file and flagging words that we want to ignore. The BinarySearchTree.h is useful for us to keep track of the words that we did a spell check option on and output the word and the line number it was on to an external file.
+
+
+
+I first declared two HashTables that are sized 500 words. One hashtable will be used for to store the words in the master dictionary, and the other hashtable will be used to flag words to ignore in the future. Then, I declared a vector of strings to store each line in the file as a 
+seperate element. After I declared a binary node that has the not found element of 'ZZZ' and the line number of -1. Then, I inserted this nodeinto a binary search tree. Then, I called my method to open the file if there is one and start processing it line by line.
+
+There are 11 methods in total.
+
+The first method has six parameters which are the two command line arguments that store what is sent at the command line in array and the size of the array at the command line (argc and argv), two hashtables, vector of strings, and a binary search tree object. It calls the method to load the hashtable with the "dict.txt" file if there is one. Then, it calls another method  opens up the file if there is one and initializes the vector with each line in the file. Else, it exits the program entirely if there is no file name sent. Then, it calls another method that starts processing each line one by one until the end of the file if there is a valid file.
+
+The second method has one parameter, which is a hashtable to store all the words in the master dicitionary. It loads the hashtable with the "dict.txt" file if there is one. Else, it leaves the hashtable empty.
+
+The third method opens up the file. This method has three parameters which are an ifstream object, an array that stores what is sent at the
+command line, and an integer that stores the size of the array at the command line. I first checked to make sure that a filename was sent at
+the command line based off if the integer equaled one. If it does equal one, then I send an error message. If there is a valid file name
+I get what is stored at the second position in the array, which is the file name and store it as a string and open it. The file at the command line should be the file you want to spell check.
+
+The next method process each of the lines one by one that is in the vector of strings. It has four parameters which are the two hashtables one
+for the dictionary and the other for ignored words, a vector of strings, and a binary search tree object. Within the method, I declare a string, another vector of strings, and an integer to store the current line number. I used a for loop to run through each line in the vector that has all the lines of the file stored in it. I then set the line number one more than the current index, and I set the string to the current
+element at the particular index in the vector with all the lines. Then, I call my method that splits the line into words. Then, I call my method to make everything in the vector of words lowercase. Then, I make sure that the vector of words is not filled with just spaces. If it is not filled with spaces, then I go through the vector of words, and see if it matches the master dictionary. If it doesn't match the master dictionary, then I clear the screen and call the printMenu method. Then, I clear the word vector once I process the current line, so the elements of the previous line are not in the vector of words. Once, it finishes processing each line, the screen will prompt that spell check is complete.
+
+
+Another method takes two parameters, which are a string and a vector of strings, and it splits a string into seperate words. If there is a space, I add the word to the vector. Else, I continue to build the word up until it hits a space. 
+
+The next method takes a vector of strings, and it makes all the elements in the vector lowercase. It iterates through each element in the vector, and it transforms the element to lowercase.
+
+Another method writes what is in the BinarySearchTree to an external file named notfound.txt. It passes a BinarySearchTree object as a parameter. It use ofstream, and it uses printTree to output to the file.
+
+The next method is the suggest word method that takes a hashtable of dictionary words and a string that represents the current word that needs to have a word suggested. It will use a for loop that run until the length of the word minus one which allows us to not have an out of bounds error. Then, I use substring to create the various of ways misspelling the word, and I compare it to the hashtable of dictionary words, and I see if it is found or not. If it is found, then it suggests a spelling. If not, then it tells the user that there are no suggested spellings. 
+Then, I have a method that prints the menu to the screen with the word that is spelled wrong and the line number that it was on. It also lists all the options that the user can perform. The parameters of this method are hashtable of the dicitonary words and ignored words, string, integer, and binarysearchtree object. It only prints the menu if the word is not flagged in the ignored words hashtable. It takes the option the user inputs, and it sends it to the method that selects the option.
+
+
+Next, the select option method takes the following parameters: a character, hashtable of the dicitonary words and ignored words, string, integer, and binarysearchtree. Within the method, it will declare a character for the local option that is selected. It will also declare and intitalize a binary node with the word and the current line number it is on, and a result that indicates if it is found in the tree or not. Then, I use a switch statement to select the option if it is valid. If the user selects A,it will add it to the hashtable of dictionary word, and then it will call the method that adds the word to end of the dictionary file, and insert it into the binary search tree and output what is in the binarysearch tree to the output file. If the user selects I, it will insert the word into the ignore word hashtable, and it insert into the binary serach tree, and output the binarysearch tree to the output file. If the user selects G, it will move to the next word. If the user selects S, it will call the method that suggests a word, and it will prompt the user hit return to continue. Then, it will insert the word into the binary search tree and output what it is in the binearysearch tree to the output file. If the user selects Q, then it will exit the program, and it will write to the output file what is in the binarysearch tree. If the user does not put something that is a valid input, it will prompt the user that they made an error, and it will continue to show error messages until they enter a valid character. Both uppercase and lowercase will allow the user to select an option.
+
+
+The last method takes a string as a parameter, and it adds it the end of the "dict.txt" file using an ofstream object.
